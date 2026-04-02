@@ -7,7 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 # Magma Terms, Equations, and Spine Classification
 
 We define magma terms over natural-number variables, equation satisfaction,
-and the spine classification used in the Left-Spine Isolation Theorem.
+and the spine classification used in the Spine Isolation Theorem for Magma Implications.
 
 ## References
 

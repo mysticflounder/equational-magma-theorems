@@ -10,7 +10,7 @@ import SpineIsolation.Defs
 The cyclic (successor) magma on `Fin n` with operation `a ◇ b = (a + 1) mod n`
 separates left-spine equations of non-divisible depths.
 
-This proves Part (a) of the Left-Spine Isolation Theorem.
+This proves Part (a) of the Spine Isolation Theorem for Magma Implications.
 
 ## Main results
 
@@ -76,7 +76,7 @@ theorem cyclic_fails_depth_m {n : Nat} (hn : 0 < n) {x m : Nat} {t : MagmaTerm}
   simp at hval
   exact Nat.dvd_of_mod_eq_zero hval.symm
 
-/-- **Left-Spine Isolation, Part (a).**
+/-- **Spine Isolation, Part (a).**
     A left-spine equation of depth `n` cannot imply a left-spine equation
     of depth `m` when `n ∤ m` (and `n ≥ 1`). -/
 theorem leftSpine_depth_notImplies {x₁ x₂ n m : Nat} {t₁ t₂ : MagmaTerm}

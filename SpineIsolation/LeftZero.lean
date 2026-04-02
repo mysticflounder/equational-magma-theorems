@@ -11,7 +11,7 @@ The left-zero magma (a ◇ b = a) satisfies every pure left-spine equation
 and provides a universal counterexample separating left-spine from
 right-spine and mixed-spine equations.
 
-This proves Parts (b) and (c) of the Left-Spine Isolation Theorem.
+This proves Parts (b) and (c) of the Spine Isolation Theorem for Magma Implications.
 
 ## Main results
 
@@ -62,7 +62,7 @@ theorem leftZero_separates_Bool (eq₂ : MagmaEq)
   rw [leftZero_eval_eq_leftmostVar]
   simp [beq_iff_eq, hne]
 
-/-- **Left-Spine Isolation, Parts (b)+(c).**
+/-- **Spine Isolation, Parts (b)+(c).**
     If `e₁` is a pure left-spine equation and `e₂` has its RHS leftmost leaf
     different from its LHS variable, then `e₁` does not imply `e₂`.
 

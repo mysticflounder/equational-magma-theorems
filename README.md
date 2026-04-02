@@ -2,7 +2,7 @@
 
 Lean 4 formalizations of structural theorems about magma equational theories.
 
-## Left-Spine Isolation Theorem
+## Spine Isolation Theorem for Magma Implications
 
 The first result formalized here: **pure left-spine equations are isolated** from
 equations with incompatible spine structure.
