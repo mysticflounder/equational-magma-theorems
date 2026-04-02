@@ -138,7 +138,7 @@ def find_equations_file(explicit_path=None):
         return Path(explicit_path)
     candidates = [
         Path('equations.txt'),
-        Path(__file__).resolve().parent.parent.parent.parent / 'sair-competitions' / 'equations.txt',
+        Path(__file__).resolve().parent.parent / 'equations.txt',
     ]
     for p in candidates:
         if p.exists():
