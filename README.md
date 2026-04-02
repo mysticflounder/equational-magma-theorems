@@ -48,6 +48,26 @@ The left-zero magma argument extends **ETP Corollary 10.4** (the "first letter"
 invariant). Our contribution is the systematic spine-type classification combined
 with the depth divisibility characterization via cyclic magmas.
 
+### Paper
+
+A. McKenna, "A Spine Isolation Theorem for Magma Implications," 2026.
+Available at https://zenodo.org/records/19380600
+
+## Data
+
+- `equations.txt` — the 4,694 magma equations from the ETP catalog, one per line.
+
+## Analysis
+
+- `analysis/count_mirrors.py` — counts equations whose left-right mirror
+  (recursively swapping left/right children at every operation node) is not
+  present in the catalog. Result: 266 of 4,694 equations have no mirror image.
+
+```bash
+python3 analysis/count_mirrors.py           # auto-finds equations.txt
+python3 analysis/count_mirrors.py path/to/equations.txt
+```
+
 ## Building
 
 Requires [Lean 4](https://leanprover.github.io/) (v4.29.0). No external
