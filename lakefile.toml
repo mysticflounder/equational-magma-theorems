@@ -1,0 +1,11 @@
+name = "SpineIsolation"
+version = "0.1.0"
+keywords = ["math"]
+defaultTargets = ["SpineIsolation"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+
+[[lean_lib]]
+name = "SpineIsolation"
