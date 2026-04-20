@@ -21,24 +21,27 @@ common project locations.
 import sys
 from pathlib import Path
 
-
 # ---------------------------------------------------------------------------
 # Parser: equation string -> (lhs_tree, rhs_tree)
 # Trees are either a variable name (str) or ('*', left, right).
 # ---------------------------------------------------------------------------
 
+
 def tokenize(s):
     tokens = []
     i = 0
     while i < len(s):
-        if s[i] == ' ':
+        if s[i] == " ":
             i += 1
-        elif s[i] in '()=':
-            tokens.append(s[i]); i += 1
-        elif s[i:i + len('◇')] == '◇':
-            tokens.append('◇'); i += len('◇')
+        elif s[i] in "()=":
+            tokens.append(s[i])
+            i += 1
+        elif s[i : i + len("◇")] == "◇":
+            tokens.append("◇")
+            i += len("◇")
         elif s[i].isalpha():
-            tokens.append(s[i]); i += 1
+            tokens.append(s[i])
+            i += 1
         else:
             i += 1
     return tokens
@@ -46,23 +49,23 @@ def tokenize(s):
 
 def _parse_expr(tokens, pos):
     left, pos = _parse_atom(tokens, pos)
-    while pos < len(tokens) and tokens[pos] == '◇':
+    while pos < len(tokens) and tokens[pos] == "◇":
         right, pos = _parse_atom(tokens, pos + 1)
-        left = ('*', left, right)
+        left = ("*", left, right)
     return left, pos
 
 
 def _parse_atom(tokens, pos):
-    if tokens[pos] == '(':
+    if tokens[pos] == "(":
         expr, pos = _parse_expr(tokens, pos + 1)
-        assert tokens[pos] == ')', f"expected ')' at pos {pos}"
+        assert tokens[pos] == ")", f"expected ')' at pos {pos}"
         return expr, pos + 1
     return tokens[pos], pos + 1
 
 
 def parse_equation(eq_str):
     tokens = tokenize(eq_str)
-    eq_idx = tokens.index('=')
+    eq_idx = tokens.index("=")
     lhs, _ = _parse_expr(tokens, 0)
     rhs, _ = _parse_expr(tokens, eq_idx + 1)
     return lhs, rhs
@@ -72,15 +75,17 @@ def parse_equation(eq_str):
 # Mirror: recursively swap left <-> right children
 # ---------------------------------------------------------------------------
 
+
 def mirror_tree(tree):
     if isinstance(tree, str):
         return tree
-    return ('*', mirror_tree(tree[2]), mirror_tree(tree[1]))
+    return ("*", mirror_tree(tree[2]), mirror_tree(tree[1]))
 
 
 # ---------------------------------------------------------------------------
 # Tree -> string (with minimal parentheses)
 # ---------------------------------------------------------------------------
+
 
 def tree_to_str(tree):
     """Convert tree to string matching ETP catalog parenthesization.
@@ -90,20 +95,20 @@ def tree_to_str(tree):
     """
     if isinstance(tree, str):
         return tree
-    l = tree_to_str(tree[1])
-    r = tree_to_str(tree[2])
+    left = tree_to_str(tree[1])
+    right = tree_to_str(tree[2])
     if isinstance(tree[1], tuple):
-        l = f"({l})"
+        left = f"({left})"
     if isinstance(tree[2], tuple):
-        r = f"({r})"
-    return f"{l} ◇ {r}"
+        right = f"({right})"
+    return f"{left} ◇ {right}"
 
 
 # ---------------------------------------------------------------------------
 # Variable canonicalization: rename to first-appearance order (x, y, z, ...)
 # ---------------------------------------------------------------------------
 
-CANON_VARS = list('xyzwuv')
+CANON_VARS = list("xyzwuv")
 
 
 def canonicalize_vars(eq_str):
@@ -126,19 +131,20 @@ def canonicalize_vars(eq_str):
             result.append(mapping[ch])
         else:
             result.append(ch)
-    return ''.join(result)
+    return "".join(result)
 
 
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
+
 def find_equations_file(explicit_path=None):
     if explicit_path:
         return Path(explicit_path)
     candidates = [
-        Path('equations.txt'),
-        Path(__file__).resolve().parent.parent / 'equations.txt',
+        Path("equations.txt"),
+        Path(__file__).resolve().parent.parent / "equations.txt",
     ]
     for p in candidates:
         if p.exists():
@@ -158,7 +164,7 @@ def mirror_equation(eq_str):
 
 def main():
     eq_path = find_equations_file(sys.argv[1] if len(sys.argv) > 1 else None)
-    with open(eq_path) as f:
+    with open(eq_path, encoding="utf-8") as f:
         equations = [line.strip() for line in f if line.strip()]
 
     eq_set = set(equations)
@@ -183,7 +189,7 @@ def main():
     print()
 
     if no_mirror:
-        print(f"Equations without mirrors (first 20):")
+        print("Equations without mirrors (first 20):")
         for eid in no_mirror[:20]:
             eq = equations[eid - 1]
             canon = mirror_equation(eq)
@@ -200,10 +206,10 @@ def main():
         if isinstance(lhs, tuple):
             product_lhs += 1
     bare_lhs = len(no_mirror) - product_lhs
-    print(f"Missing mirrors by LHS type:")
+    print("Missing mirrors by LHS type:")
     print(f"  Product LHS (Family C): {product_lhs}")
     print(f"  Bare variable LHS:      {bare_lhs}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

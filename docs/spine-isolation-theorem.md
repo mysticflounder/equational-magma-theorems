@@ -338,7 +338,7 @@ implications are FALSE.
 
 We note an asymmetry in the catalog: pure right-spine $\to$ pure left-spine
 implications are 14--17\% TRUE, not universally FALSE. This is because the
-4,694-equation catalog is not closed under mirroring: 554 of the 4,694
+4,694-equation catalog is not closed under mirroring: 266 of the 4,694
 equations (predominantly Family C, with product left-hand sides) have no
 mirror image in the catalog. The cross-spine isolation
 (Parts (b) and (c)) is a statement about left-spine sources; it does not
@@ -412,7 +412,7 @@ problem.
 
 The left-right asymmetry observed in the empirical data is a catalog
 artifact, not an algebraic phenomenon. The ETP catalog enumerates equations
-by a left-to-right tree-structure convention, producing 554 equations
+by a left-to-right tree-structure convention, producing 266 equations
 (predominantly Family C) with no mirror image in the catalog. Within any mirror-closed extension, the
 right-spine analogue of Parts (b) and (c) would hold with identical force.
 
@@ -445,3 +445,24 @@ A.~McKenna,
 \url{https://github.com/mysticflounder/equational-magma-theorems}, 2026.
 
 \end{thebibliography}
+
+# Revision Notes
+
+**v3 (2026-04-19):** Tightened theorem text and expanded the Lean formalization.
+Fixed source-vs-target scope in the Parts (b)/(c) statement; rewrote the
+mixed-spine proof via a unified leftmost-leaf lemma; made the depth
+hypothesis $n \geq 2$ explicit for Part (a); separated the citation of
+Corollary 10.4 from the left-absorption example and pinned the
+left-zero $\Leftrightarrow$ left-absorption synonymy; added a direct Lean
+proof of the Right-Spine Isolation Corollary via a right-cyclic successor
+magma (`SpineIsolation/RightCyclic.lean`), avoiding the opposite-magma
+detour, and updated the corollary proof in the paper to match. Also
+re-applied the v2 mirror-count correction (266), which had been missing
+from the public repository.
+
+**v2 (2026-04-02):** Corrected mirror image count from 554 to 266. The previous
+count used a variable-transposition operation instead of the correct tree-structure
+mirror (recursively swapping left and right children at every binary operation node).
+A reproducible script (`analysis/count_mirrors.py`) is now included in the public
+repository. Round-trip verification confirms the parser and printer match all 4,694
+catalog entries exactly.
